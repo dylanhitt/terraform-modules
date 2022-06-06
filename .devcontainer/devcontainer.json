@@ -1,0 +1,33 @@
+{
+  "name": "TF-Go",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "containerEnv": {
+    "NODE_EXTRA_CA_CERTS": ""
+  },
+  "extensions": [
+    "4ops.terraform",
+    "eamodio.gitlens",
+    "gitlab.gitlab-workflow",
+    "golang.Go",
+    "ms-azuretools.vscode-docker",
+    "redhat.vscode-yaml"
+  ],
+  "postAttachCommand": "cp ${containerWorkspaceFolder}/.devcontainer/.bashrc ${HOME}/",
+  "remoteEnv": {
+    "AWS_DEFAULT_REGION": "us-west-2",
+    "GIT_EDITOR": "code --wait"
+  },
+  "remoteUser": "vscode",
+  "settings": {
+    "editor.tabSize": 4,
+    "files.eol": "\n",
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "terminal.integrated.profiles.linux": {
+      "bash": {
+        "path": "/bin/bash"
+      }
+    }
+  }
+}
