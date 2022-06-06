@@ -40,16 +40,23 @@ func Test_SuccessfulCreation(t *testing.T) {
 		TerraformDir: ".",
 	})
 
-	file, err := ioutil.TempFile("tmp", "prefix")
+	file, err := ioutil.TempFile("", "policy.json")
 	require.NoError(t, err)
-	defer os.Remove(file.Name())
+
+	t.Cleanup(func() {
+		defer file.Close()
+		defer os.Remove(file.Name())
+	})
+
+	_, err = file.WriteString(policyString)
+	require.NoError(t, err)
 
 	tcs := []testCase{
 		{
 			fmt.Sprintf("%s_simple", suiteName),
 			map[string]interface{}{
-				"name":                    suiteName,
-				"aws_iam_policy_document": file.Name(),
+				"name":            suiteName,
+				"policy_document": file.Name(),
 			}},
 	}
 

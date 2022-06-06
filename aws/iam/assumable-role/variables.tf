@@ -3,7 +3,7 @@ variable "name" {
   type        = string
 }
 
-variable "aws_iam_policy_document" {
+variable "policy_document" {
   description = "Path to JSON file representation of an AWS assume role policy"
   type        = string
 }
