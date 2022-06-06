@@ -16,6 +16,12 @@ variable "tags" {
 
 variable "create_instance_profile" {
   type        = bool
-  description = "Would you like to create instance profile for this Role"
+  description = "Would you like to create instance profile for this role."
   default     = false
+}
+
+variable "attach_policy_arns" {
+  type        = list(string)
+  description = "List of policy arns to attach to this role."
+  default     = []
 }
