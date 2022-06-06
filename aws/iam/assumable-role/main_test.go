@@ -44,8 +44,8 @@ func Test_SuccessfulCreation(t *testing.T) {
 	require.NoError(t, err)
 
 	t.Cleanup(func() {
-		defer file.Close()
-		defer os.Remove(file.Name())
+		file.Close()
+		os.Remove(file.Name())
 	})
 
 	_, err = file.WriteString(policyString)
@@ -57,7 +57,16 @@ func Test_SuccessfulCreation(t *testing.T) {
 			map[string]interface{}{
 				"name":            suiteName,
 				"policy_document": file.Name(),
-			}},
+			},
+		},
+		{
+			fmt.Sprintf("%s_attach_policy", suiteName),
+			map[string]interface{}{
+				"name":               fmt.Sprintf("%s_%s", suiteName, "attach_policy"),
+				"policy_document":    file.Name(),
+				"attach_policy_arns": []string{"arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"},
+			},
+		},
 	}
 
 	for _, tc := range tcs {
@@ -76,10 +85,8 @@ func buildOpts(t *testing.T, tc testCase) *terraform.Options {
 	dir, err := files.CopyTerraformFolderToTemp(".", tc.name)
 	require.NoError(t, err)
 
-	opts := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+	return terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: dir,
 		Vars:         tc.opts,
 	})
-
-	return opts
 }
