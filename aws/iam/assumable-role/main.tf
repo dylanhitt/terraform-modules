@@ -5,7 +5,7 @@ resource "aws_iam_role" "this" {
 }
 
 resource "aws_iam_instance_profile" "this" {
-  count = var.create_instance_profile != "" ? 1 : 0
+  count = var.create_instance_profile ? 1 : 0
 
   name = "${aws_iam_role.this.name}-profile"
   role = aws_iam_role.this.name
