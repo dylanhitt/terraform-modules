@@ -15,7 +15,7 @@ resource "aws_eks_cluster" "this" {
   tags = var.tags
 
   vpc_config {
-      endpoint_private_access = true
+    endpoint_private_access = true
     endpoint_public_access  = var.public_access
     subnet_ids              = var.subnet_ids # need to default this to grabbing tow different default subnets in a VPC
   }
