@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"testing"
 
 	"github.com/gruntwork-io/terratest/modules/files"
@@ -14,8 +15,8 @@ var (
 	suiteID         = random.UniqueId()
 	suitePrefix     = "ttest_eks"
 	suiteName       = fmt.Sprintf("%s_%s", suitePrefix, suiteID)
-	eks_role        = "arn:aws:iam::145313333597:role/eks_cluster_role"
-	cluster_version = "1.22"
+	eks_role        = os.Getenv("EKS_ROLE")
+	cluster_version = os.Getenv("CLUSTER_VERSION")
 	subent_ids      = []string{"subnet-00bfcb759ce838e62", "subnet-009e9b8cf6fdbeafc"}
 )
 
