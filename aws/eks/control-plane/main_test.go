@@ -26,6 +26,7 @@ type testCase struct {
 }
 
 func Test_SuccessfulCreation(t *testing.T) {
+	t.Parallel()
 	terraform.Init(t, &terraform.Options{
 		TerraformDir: ".",
 	})
@@ -34,10 +35,20 @@ func Test_SuccessfulCreation(t *testing.T) {
 		{
 			fmt.Sprintf("%s_simple", suiteName),
 			map[string]interface{}{
-				"name":            suiteName,
+				"name":            fmt.Sprintf("%s_simple", suiteName),
 				"role_arn":        eks_role,
 				"cluster_version": cluster_version,
 				"subnet_ids":      subent_ids,
+			},
+		},
+		{
+			fmt.Sprintf("%s_oidc", suiteName),
+			map[string]interface{}{
+				"name":            fmt.Sprintf("%s_oidc", suiteName),
+				"role_arn":        eks_role,
+				"cluster_version": cluster_version,
+				"subnet_ids":      subent_ids,
+				"oidc":            true,
 			},
 		},
 	}
