@@ -36,3 +36,9 @@ variable "tags" {
   description = "Key value map of tags to apply to the IAM role."
   default     = {}
 }
+
+variable "oidc" {
+  type        = bool
+  description = "Would you like IAM Roles for service account via oidc?"
+  default     = false
+}

@@ -20,3 +20,14 @@ resource "aws_eks_cluster" "this" {
     subnet_ids              = var.subnet_ids # need to default this to grabbing tow different default subnets in a VPC
   }
 }
+
+module "oidc" {
+  count  = var.oidc ? 1 : 0
+  source = "./oidc-provider"
+
+  eks_cluster = aws_eks_cluster.this
+
+  depends_on = [
+    aws_eks_cluster.this
+  ]
+}
