@@ -44,7 +44,7 @@ module "oidc" {
   count  = var.oidc ? 1 : 0
   source = "./oidc-provider"
 
-  eks_cluster = aws_eks_cluster.this
+  eks_cluster = aws_eks_cluster.this.identity[0].oidc[0].issuer
 
   depends_on = [
     aws_eks_cluster.this
