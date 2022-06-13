@@ -16,7 +16,6 @@ var (
 	suiteID         = random.UniqueId()
 	suitePrefix     = "ttest_eks"
 	suiteName       = fmt.Sprintf("%s_%s", suitePrefix, suiteID)
-	eks_role        = os.Getenv("EKS_ROLE")
 	cluster_version = os.Getenv("CLUSTER_VERSION")
 	subnet_ids      = parseSubnetIDsFromEnv()
 )
