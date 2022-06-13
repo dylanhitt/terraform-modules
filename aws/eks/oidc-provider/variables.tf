@@ -1,3 +1,4 @@
-variable "eks_cluster" {
-  description = "Terraform EKS cluster object"
+variable "oidc_issuer" {
+  description = "Cluster oidc issuer"
+  type        = string
 }
