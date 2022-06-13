@@ -3,7 +3,7 @@ output "endpoint" {
   sensitive = true
 }
 
-output "kubeconfig-certificate-authority-data" {
+output "certificate_authority_data" {
   value     = aws_eks_cluster.this.certificate_authority[0].data
   sensitive = true
 }
