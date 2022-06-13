@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/gruntwork-io/terratest/modules/files"
@@ -17,7 +18,7 @@ var (
 	suiteName       = fmt.Sprintf("%s_%s", suitePrefix, suiteID)
 	eks_role        = os.Getenv("EKS_ROLE")
 	cluster_version = os.Getenv("CLUSTER_VERSION")
-	subent_ids      = []string{"subnet-00bfcb759ce838e62", "subnet-009e9b8cf6fdbeafc"}
+	subnet_ids      = parseSubnetIDsFromEnv()
 )
 
 type testCase struct {
@@ -38,7 +39,7 @@ func Test_SuccessfulCreation(t *testing.T) {
 				"name":            fmt.Sprintf("%s_simple", suiteName),
 				"role_arn":        eks_role,
 				"cluster_version": cluster_version,
-				"subnet_ids":      subent_ids,
+				"subnet_ids":      subnet_ids,
 			},
 		},
 		{
@@ -47,7 +48,7 @@ func Test_SuccessfulCreation(t *testing.T) {
 				"name":            fmt.Sprintf("%s_oidc", suiteName),
 				"role_arn":        eks_role,
 				"cluster_version": cluster_version,
-				"subnet_ids":      subent_ids,
+				"subnet_ids":      subnet_ids,
 				"oidc":            true,
 			},
 		},
@@ -63,6 +64,11 @@ func Test_SuccessfulCreation(t *testing.T) {
 			terraform.InitAndApplyAndIdempotent(t, o)
 		})
 	}
+}
+
+func parseSubnetIDsFromEnv() []string {
+	s := os.Getenv("SUBNET_IDS")
+	return strings.Split(s, ",")
 }
 
 func buildOpts(t *testing.T, tc testCase) *terraform.Options {
