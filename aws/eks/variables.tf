@@ -41,3 +41,9 @@ variable "oidc" {
   description = "(Optional) Would you like IAM Roles for service account via oidc?"
   default     = false
 }
+
+variable "cni_addon" {
+  type        = bool
+  description = "(Optional) Would you like to run the AWS VPC CNI with IAM role"
+  default     = true
+}
