@@ -3,4 +3,3 @@ fmt:
 	gofmt -s -w .
 
 .PHONY: fmt
-	
