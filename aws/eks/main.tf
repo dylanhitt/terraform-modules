@@ -44,9 +44,14 @@ module "oidc" {
   count  = var.oidc ? 1 : 0
   source = "./oidc-provider"
 
-  eks_cluster = aws_eks_cluster.this.identity[0].oidc[0].issuer
+  oidc_issuer = aws_eks_cluster.this.identity[0].oidc[0].issuer
+}
 
-  depends_on = [
-    aws_eks_cluster.this
-  ]
+module "cni_addon" {
+  count  = var.cni_addon ? 1 : 0
+  source = "./cni-addon"
+
+  oidc_issuer                 = aws_eks_cluster.this.identity[0].oidc[0].issuer
+  openid_connect_provider_arn = module.oidc[0].openid_connect_provider_arn
+  cluster_name                = aws_eks_cluster.this.name
 }
