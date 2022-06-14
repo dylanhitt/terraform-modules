@@ -3,11 +3,6 @@ variable "name" {
   description = "name for the cluster."
 }
 
-variable "role_arn" {
-  type        = string
-  description = "IAM role that provides permissions for the Kubernetes control plane to make calls to AWS API. Typically: https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html"
-}
-
 variable "cluster_version" {
   type        = string
   description = "Kubernetes Version"
@@ -39,11 +34,11 @@ variable "tags" {
 variable "oidc" {
   type        = bool
   description = "(Optional) Would you like IAM Roles for service account via oidc?"
-  default     = false
+  default     = true
 }
 
 variable "cni_addon" {
   type        = bool
-  description = "(Optional) Would you like to run the AWS VPC CNI with IAM role"
+  description = "(Optional) Would you like to run the AWS VPC CNI with IAM role. Default true"
   default     = true
 }
