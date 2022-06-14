@@ -42,3 +42,9 @@ variable "cni_addon" {
   description = "(Optional) Would you like to run the AWS VPC CNI with IAM role. Default true"
   default     = true
 }
+
+variable "default_nodegroup" {
+  type        = bool
+  description = "(Optional) Would you like a nodegroup to be created for you."
+  default     = false
+}
