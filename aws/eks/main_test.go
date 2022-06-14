@@ -40,6 +40,15 @@ func Test_SuccessfulCreation(t *testing.T) {
 				"subnet_ids":      subnet_ids,
 			},
 		},
+		{
+			fmt.Sprintf("%s_nodegroup", suiteName),
+			map[string]interface{}{
+				"name":              fmt.Sprintf("%s_nodegroup", suiteName),
+				"cluster_version":   cluster_version,
+				"subnet_ids":        subnet_ids,
+				"default_nodegroup": true,
+			},
+		},
 	}
 
 	for _, tc := range tcs {

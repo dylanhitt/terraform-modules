@@ -55,3 +55,14 @@ module "cni_addon" {
   openid_connect_provider_arn = module.oidc[0].openid_connect_provider_arn
   cluster_name                = aws_eks_cluster.this.name
 }
+
+module "default_nodegroup" {
+  count  = var.default_nodegroup ? 1 : 0
+  source = "./nodegroup"
+
+  cluster_name    = aws_eks_cluster.this.name
+  name            = "default_group-${aws_eks_cluster.this.name}"
+  subnet_ids      = var.subnet_ids
+  disk_size       = 20
+  create_iam_role = true
+}
