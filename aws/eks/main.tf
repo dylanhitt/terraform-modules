@@ -36,7 +36,7 @@ resource "aws_eks_cluster" "this" {
   vpc_config {
     endpoint_private_access = true
     endpoint_public_access  = var.public_access
-    subnet_ids              = var.subnet_ids
+    subnet_ids              = var.create_vpc ? module.vpc.private_subnets : var.subnet_ids
   }
 }
 
@@ -62,7 +62,11 @@ module "default_nodegroup" {
 
   cluster_name    = aws_eks_cluster.this.name
   name            = "default_group-${aws_eks_cluster.this.name}"
-  subnet_ids      = var.subnet_ids
+  subnet_ids      = var.create_vpc ? module.vpc.private_subnets : var.subnet_ids
   disk_size       = 20
   create_iam_role = true
+
+  depends_on = [
+    module.cni_addon
+  ]
 }

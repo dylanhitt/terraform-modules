@@ -41,11 +41,11 @@ func Test_SuccessfulCreation(t *testing.T) {
 			},
 		},
 		{
-			fmt.Sprintf("%s_nodegroup", suiteName),
+			fmt.Sprintf("%s_everything", suiteName),
 			map[string]interface{}{
-				"name":              fmt.Sprintf("%s_nodegroup", suiteName),
+				"name":              fmt.Sprintf("%s_vpc", suiteName),
 				"cluster_version":   cluster_version,
-				"subnet_ids":        subnet_ids,
+				"create_vpc":        true,
 				"default_nodegroup": true,
 			},
 		},

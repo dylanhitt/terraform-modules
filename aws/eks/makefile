@@ -8,8 +8,11 @@ setup:
 test: setup
 	go test -timeout=0 -v ./...
 
+docs:
+	terraform-docs markdown table --output-file README.md --output-mode inject .
+
 validate-all: setup
 	terraform init
 	terraform validate
 
-.PHONY: setup test validate-all
+.PHONY: setup test validate-all docs
